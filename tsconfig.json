@@ -17,7 +17,13 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "scully-plugin-contentful": [
+        "dist/scully-plugin-contentful/scully-plugin-contentful",
+        "dist/scully-plugin-contentful"
+      ]
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
