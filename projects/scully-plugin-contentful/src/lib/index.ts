@@ -68,5 +68,7 @@ export const contentfulRoutePlugin = async (route: string, conf): Promise<any[]>
     type: 'contentful'
   }];
 };
+
+const validator = async conf => [];
 export const Contentful = 'contentful';
-registerPlugin('router', Contentful, contentfulRoutePlugin);
+registerPlugin('router', Contentful, contentfulRoutePlugin, validator);
