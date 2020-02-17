@@ -1,9 +1,32 @@
 {
   "name": "scully-plugin-contentful",
   "version": "0.0.1",
+  "maintainers": [
+    "Peter B Smith <peter@upstateinteractive.io> (https://upstateinteractive.io)",
+    "Zoe Koulouris Augustions <zoe@upstatinteractive.io> (https://upstateinteractive.io)"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/upstateinteractive/scully-plugin-contentful"
+  },
+  "keywords": [
+    "angular",
+    "scully",
+    "contentful",
+    "ssg",
+    "cms"
+  ],
+  "contributors": [
+    "Peter B Smith <peter@upstateinteractive.io> (https://upstateinteractive.io)",
+    "Zoe Koulouris Augustions <zoe@upstatinteractive.io> (https://upstateinteractive.io)"
+  ],
+  "author": "Peter B Smith",
+  "license": "MIT",
   "peerDependencies": {
     "@angular/common": "^9.0.1",
     "@angular/core": "^9.0.1",
-    "tslib": "^1.10.0"
+    "tslib": "^1.10.0",
+    "@scullyio/scully": "0.0.72",
+    "contentful": "^7.13.1"
   }
 }
