@@ -7,8 +7,9 @@ import {
 } from '@scullyio/scully';
 import { scullyConfig } from '@scullyio/scully/utils/config';
 import * as contentful from 'contentful';
+
 // TODO: What to do about handling "HandledRoute" type?
-export const contentfulRoutePlugin = async (route: string, conf): Promise<any[]> => {
+export const contentfulRoutePlugin = async (route: string, conf): Promise<HandledRoute[]> => {
   console.dir(route);
   console.dir(conf);
   const space = 'ffdlnke80456';
