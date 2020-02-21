@@ -8,37 +8,25 @@ import {
 import { scullyConfig } from '@scullyio/scully/utils/config';
 import * as contentful from 'contentful';
 
+
 // TODO: What to do about handling "HandledRoute" type?
 export const contentfulRoutePlugin = async (route: string, conf): Promise<HandledRoute[]> => {
-  console.dir('begin plugin')
-  console.dir(route);
-  console.dir(conf);
-  const space = 'ffdlnke80456';
-  const accessToken = 'ddIqmAi-jlQc764wVeAB-flgIkjUu5PSVUTkX_HtRnU';
-  const host = 'https://cdn.contentful.com';
-  const environment = 'master';
-  const proxy = null;
   try {
-    // const contentfulClientOptions = {
-    //   space: conf.config.spaceId,
-    //   accessToken: conf.config.accessToken,
-    //   host: conf.config.host,
-    //   environment: conf.config.environment,
-    //   proxy: conf.config.proxy
-    // };
     const contentfulClientOptions = {
-      space,
-      accessToken,
-      host,
-      environment,
-      proxy
+      space: conf.config.spaceId,
+      accessToken: conf.config.accessToken
     };
     const client = contentful.createClient(contentfulClientOptions);
-    const contentfulSpace = await client.getSpace();
-    return [{
-      route: '/article/1',
-      type: 'contentful'
-    }];
+
+    const entries: any = await client.getEntries({
+      content_type: conf.config.contentType
+    })
+
+    return entries.map(e => ({
+      route: `article/${e.sys.id}`,
+      type: 'contentful',
+      ...e.fields
+    }))
   } catch (e) {
     let details;
     if (e.code === `ENOTFOUND`) {
@@ -65,10 +53,6 @@ export const contentfulRoutePlugin = async (route: string, conf): Promise<Handle
     Try setting GATSBY_CONTENTFUL_OFFLINE=true to see if we can serve from cache.
     ${details ? `\n${details}\n` : ``}`);
   }
-  return [{
-    route: '/article/1',
-    type: 'contentful'
-  }];
 };
 
 const validator = async conf => [];
