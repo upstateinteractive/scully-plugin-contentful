@@ -1,11 +1,7 @@
 import {
   registerPlugin,
   HandledRoute,
-  configValidator,
-  httpGetJson,
-  routeSplit,
 } from '@scullyio/scully';
-import { scullyConfig } from '@scullyio/scully/utils/config';
 import * as contentful from 'contentful';
 
 
@@ -18,14 +14,14 @@ export const contentfulRoutePlugin = async (route: string, conf): Promise<Handle
     };
     const client = contentful.createClient(contentfulClientOptions);
 
-    const entries: any = await client.getEntries({
+    const entries = await client.getEntries({
       content_type: conf.config.contentType
     })
 
-    return entries.map(e => ({
-      route: `article/${e.sys.id}`,
+    return entries.items.map(e => ({
+      route: `/article/${e.sys.id}`,
       type: 'contentful',
-      ...e.fields
+      data: e.fields
     }))
   } catch (e) {
     let details;
