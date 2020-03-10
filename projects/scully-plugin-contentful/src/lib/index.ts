@@ -4,25 +4,42 @@ import {
 } from '@scullyio/scully';
 import * as contentful from 'contentful';
 
+export interface ScullyContentfulOptions {
+  spaceId: string;
+  accessToken: string;
+  contentType: string;
+  environment?: string;
+  host?: string;
+}
 
-// TODO: What to do about handling "HandledRoute" type?
 export const contentfulRoutePlugin = async (route: string, conf): Promise<HandledRoute[]> => {
   try {
     const contentfulClientOptions = {
       space: conf.config.spaceId,
-      accessToken: conf.config.accessToken
+      accessToken: conf.config.accessToken,
+      host: null,
+      environment: null
     };
+
+    if (conf.config.host) {
+      contentfulClientOptions.host = conf.config.host;
+    }
+
+    if (conf.config.environment) {
+      contentfulClientOptions.environment = conf.config.environment;
+    }
+
     const client = contentful.createClient(contentfulClientOptions);
 
     const entries = await client.getEntries({
       content_type: conf.config.contentType
-    })
+    });
 
     return entries.items.map(e => ({
       route: `/article/${e.sys.id}`,
       type: 'contentful',
       data: e.fields
-    }))
+    }));
   } catch (e) {
     let details;
     if (e.code === `ENOTFOUND`) {
