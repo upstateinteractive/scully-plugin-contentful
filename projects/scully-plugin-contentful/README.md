@@ -1,24 +1,54 @@
-# ScullyPluginContentful
+# scully-plugin-contentful
+> contentful plugin for [scully](https://scully.io/)
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.0.1.
+## Getting Started
+```sh
+# install in your existing scully project
+npm i -S scully-plugin-contentful
+```
 
-## Code scaffolding
+```js
+/**
+ * scully.scully-example-contentful.config.js
+ */
+require('scully-plugin-contentful');
+require('dotenv').config();
 
-Run `ng generate component component-name --project scully-plugin-contentful` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project scully-plugin-contentful`.
-> Note: Don't forget to add `--project scully-plugin-contentful` or else it will be added to the default project in your `angular.json` file. 
+exports.config = {
+  projectRoot: './src',
+  projectName: 'scully-example-contentful',
+  outDir: './dist/static',
+  routes: {
+    '/article/:articleId': {
+      type: 'contentful',
+      config: {
+        spaceId: process.env.SPACE_ID,
+        accessToken: process.env.ACCESS_TOKEN,
+        contentType: 'article',
+      }
+    },
+  }
+};
+```
 
-## Build
+[See Example Repository](https://github.com/upstateinteractive/scully-example-contentful)
 
-Run `ng build scully-plugin-contentful` to build the project. The build artifacts will be stored in the `dist/` directory.
+## Configuration
+**Required**  
+| Name | Type | Description |
+|---|---|---|
+| spaceId | string | your contentful space id |
+| accessToken | string | your contentful access token (note: this can be either production or preview key) |
+| contentType | string | the contentful content type id |
 
-## Publishing
+**Optional**
+| Name | Type | Description |
+|---|---|---|
+| host | string | contentful host URL. To use Preview API use `'preview.contentful.com'` |
+| environment | string | your contentful environment |
 
-After building your library with `ng build scully-plugin-contentful`, go to the dist folder `cd dist/scully-plugin-contentful` and run `npm publish`.
 
-## Running unit tests
-
-Run `ng test scully-plugin-contentful` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Community Support
+[Scully on GitHub](https://www.scully.io)  
+[Scully on Gitter](https://gitter.im/scullyio/community)  
+[Upstate Interactive on Twitter](https://twitter.com/@upstateagency)
