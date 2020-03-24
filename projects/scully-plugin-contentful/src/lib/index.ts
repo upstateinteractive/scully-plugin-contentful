@@ -1,6 +1,7 @@
 import {
   registerPlugin,
   HandledRoute,
+  routeSplit
 } from '@scullyio/scully';
 import * as contentful from 'contentful';
 
@@ -13,6 +14,8 @@ export interface ScullyContentfulOptions {
 }
 
 export const contentfulRoutePlugin = async (route: string, conf): Promise<HandledRoute[]> => {
+  const { createPath } = routeSplit(route);
+
   try {
     const contentfulClientOptions: any = {
       space: conf.config.spaceId,
@@ -34,7 +37,7 @@ export const contentfulRoutePlugin = async (route: string, conf): Promise<Handle
     });
 
     return entries.items.map(e => ({
-      route: `/article/${e.sys.id}`,
+      route: createPath(e.sys.id),
       type: 'contentful',
       data: e.fields
     }));
