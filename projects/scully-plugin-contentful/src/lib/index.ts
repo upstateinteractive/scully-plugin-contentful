@@ -14,11 +14,9 @@ export interface ScullyContentfulOptions {
 
 export const contentfulRoutePlugin = async (route: string, conf): Promise<HandledRoute[]> => {
   try {
-    const contentfulClientOptions = {
+    const contentfulClientOptions: any = {
       space: conf.config.spaceId,
-      accessToken: conf.config.accessToken,
-      host: null,
-      environment: null
+      accessToken: conf.config.accessToken
     };
 
     if (conf.config.host) {
