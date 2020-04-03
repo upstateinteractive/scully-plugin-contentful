@@ -30,6 +30,18 @@ export const contentfulRoutePlugin = async (route: string, conf): Promise<Handle
       contentfulClientOptions.environment = conf.config.environment;
     }
 
+    if (!conf.config.spaceId) {
+      throw 'A space ID is required. Check if setting is correct.'
+    }
+
+    if (!conf.config.accessToken) {
+      throw 'Authorization error. Check if setting is correct.'
+    }
+
+    if (!conf.config.contentType) {
+      throw 'A content type is required. Check if setting is correct.'
+    }
+
     const client = contentful.createClient(contentfulClientOptions);
 
     const entries = await client.getEntries({
@@ -53,22 +65,36 @@ export const contentfulRoutePlugin = async (route: string, conf): Promise<Handle
     } else if (e.response) {
       if (e.response.status === 404) {
         // host and space used to generate url
-        details = `Endpoint not found. Check if
-          host
-        and spaceId settings are correct`;
+        details = `Endpoint not found. Check if host and spaceId settings are correct`;
       } else if (e.response.status === 401) {
         // authorization error
-        details = `Authorization error. Check if
-          accessToken
-        and environment are correct`;
+        details = `Authorization error. Check if accessToken and environment are correct`;
       }
+    } else if (e) {
+      console.error(`Accessing your Contentful space failed.
+      ${details ? `\n${details}\n` : ``}`);
     }
-    console.error(`Accessing your Contentful space failed.
-    Try setting GATSBY_CONTENTFUL_OFFLINE=true to see if we can serve from cache.
-    ${details ? `\n${details}\n` : ``}`);
+
   }
 };
 
-const validator = async conf => [];
+const validator = ({ config }) => {
+  const errors = [];
+
+  if (!config.spaceId) {
+    errors.push('A Space ID is required. You can find your Space ID in your Contentful account.')
+  }
+
+  if (!config.accessToken) {
+    errors.push('An access token is required. You can find your access tokens in your Contentful account')
+  }
+
+  if (!config.contentType) {
+    errors.push('A content type is required.')
+  }
+
+  return errors
+};
+
 export const Contentful = 'contentful';
 registerPlugin('router', Contentful, contentfulRoutePlugin, validator);
