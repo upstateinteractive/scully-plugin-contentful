@@ -1,9 +1,9 @@
 {
   "name": "scully-plugin-contentful",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "maintainers": [
     "Peter B Smith <peter@upstateinteractive.io> (https://upstateinteractive.io)",
-    "Zoe Koulouris Augustions <zoe@upstatinteractive.io> (https://upstateinteractive.io)"
+    "Zoe Koulouris Augustinos <zoe@upstatinteractive.io> (https://upstateinteractive.io)"
   ],
   "repository": {
     "type": "git",
@@ -18,7 +18,7 @@
   ],
   "contributors": [
     "Peter B Smith <peter@upstateinteractive.io> (https://upstateinteractive.io)",
-    "Zoe Koulouris Augustions <zoe@upstatinteractive.io> (https://upstateinteractive.io)"
+    "Zoe Koulouris Augustinos <zoe@upstatinteractive.io> (https://upstateinteractive.io)"
   ],
   "author": "Peter B Smith",
   "license": "MIT",
